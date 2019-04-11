@@ -15,6 +15,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
+import model.services.DepartmentService;
 
 public class MainViewControllers implements Initializable {
 	@FXML
@@ -31,7 +32,7 @@ public class MainViewControllers implements Initializable {
 
 	@FXML
 	public void onMenuDepartmentAction() {
-		loadView("/gui/DepartmentList.fxml");
+		loadView2("/gui/DepartmentList.fxml");
 	}
 
 	@FXML
@@ -47,7 +48,7 @@ public class MainViewControllers implements Initializable {
 	private synchronized void loadView(String absoluteName) {
 		try {
 			FXMLLoader telaDoAbout = new FXMLLoader(getClass().getResource(absoluteName));
-			VBox newVboxComTelaDoAbout = telaDoAbout.load();//carrega a tela do About
+			VBox newVboxDepartmentController = telaDoAbout.load();//carrega a tela do About
 			//abaixo estou pegando o objeto getcenaPrincipal da classe principal para poder referenciar o node da Scene cenaPrincipal
 			//Principal, mais abaixo o metodo getRoot do objeto cenaPrincipal pega o primeiro node da nossa cena principal
 			Scene cenaPrincipal = Main.getMainScene();
@@ -61,7 +62,35 @@ public class MainViewControllers implements Initializable {
 
 			VBoxPrincipal.getChildren().clear();
 			VBoxPrincipal.getChildren().add(menuPrincipal);
-			VBoxPrincipal.getChildren().addAll(newVboxComTelaDoAbout.getChildren());
+			VBoxPrincipal.getChildren().addAll(newVboxDepartmentController.getChildren());
+			
+			
+		} catch (IOException e) {
+			Alerts.showAlert("IOException", "Error loading View", e.getMessage(), AlertType.ERROR);
+		}
+	}
+	private synchronized void loadView2(String absoluteName) {
+		try {
+			FXMLLoader telaDepartmentList = new FXMLLoader(getClass().getResource(absoluteName));//"/gui/DepartmentList.fxml"
+			VBox newVboxDepartmentController = telaDepartmentList.load();//carrega a tela do DepartmentList
+			//abaixo estou pegando o objeto getcenaPrincipal da classe principal para poder referenciar o node da Scene cenaPrincipal
+			//Principal, mais abaixo o metodo getRoot do objeto cenaPrincipal pega o primeiro node da nossa cena principal
+			Scene cenaPrincipal = Main.getMainScene();
+			// o metodo getRoot pega o primeiro elemento da view cenaPrincipal, que é o elemento ScrollPane, por isso temos
+			//um cast para ScrollPane, e coloco tudo dentro de parenteses,depois eu uso o getContent para pegar o conteudo
+			// que está dentro do ScrollPane, e faço um cast para VBox para colocar dentro do elemento VBox(mainBox)
+			// que acabei de criar
+			VBox VBoxPrincipal = (VBox)((ScrollPane) cenaPrincipal.getRoot()).getContent();
+			
+			Node menuPrincipal = VBoxPrincipal.getChildren().get(0);
+
+			VBoxPrincipal.getChildren().clear();
+			VBoxPrincipal.getChildren().add(menuPrincipal);
+			VBoxPrincipal.getChildren().addAll(newVboxDepartmentController.getChildren());
+			
+			DepartmentListController controller = telaDepartmentList.getController();
+			controller.setDepartmentService(new DepartmentService());
+			controller.updateTableView();
 			
 			
 		} catch (IOException e) {
