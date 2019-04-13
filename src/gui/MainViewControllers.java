@@ -52,8 +52,8 @@ public class MainViewControllers implements Initializable {
 
 	private synchronized<T> void loadView(String absoluteName, Consumer<T>initializingAction) {
 		try {
-			FXMLLoader telaDoAbout = new FXMLLoader(getClass().getResource(absoluteName));
-			VBox newVboxDepartmentController = telaDoAbout.load();//carrega a tela do About
+			FXMLLoader telaDepartmentList = new FXMLLoader(getClass().getResource(absoluteName));
+			VBox newVboxDepartmentController = telaDepartmentList.load();//carrega a tela do About
 			//abaixo estou pegando o objeto getcenaPrincipal da classe principal para poder referenciar o node da Scene cenaPrincipal
 			//Principal, mais abaixo o metodo getRoot do objeto cenaPrincipal pega o primeiro node da nossa cena principal
 			Scene cenaPrincipal = Main.getMainScene();
@@ -69,6 +69,9 @@ public class MainViewControllers implements Initializable {
 			VBoxPrincipal.getChildren().add(menuPrincipal);
 			VBoxPrincipal.getChildren().addAll(newVboxDepartmentController.getChildren());
 			
+			
+			T controller = telaDepartmentList.getController();
+			initializingAction.accept(controller);
 			
 		} catch (IOException e) {
 			Alerts.showAlert("IOException", "Error loading View", e.getMessage(), AlertType.ERROR);
