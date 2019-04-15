@@ -47,8 +47,8 @@ public class DepartmentListController implements Initializable {
 	private ObservableList<Department>obsList;
 	
 	@FXML
-	public void  onBtNewAction(ActionEvent event) {
-		Stage parentStage = Utils.currenteStage(event);
+	public void  onBtNewAction(ActionEvent carregarFormDepartmentList) {
+		Stage parentStage = Utils.currenteStage(carregarFormDepartmentList);
 		createDialogForm("/gui/DepartmentForm.fxml",parentStage);
 	}	
 	public void setDepartmentService(DepartmentService service) {
@@ -76,18 +76,19 @@ public class DepartmentListController implements Initializable {
 		tableViewDepartment.setItems(obsList);
 		
 	}
-	private void createDialogForm(String absoluteName,Stage parentStage) {
+	private void createDialogForm(String absoluteName,Stage parentStage) {//parentStage nome da janela de dialogo
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			Pane pane = loader.load();
-			
-			Stage dialogStage = new Stage();
+			//codigos da janela de dialogo da View DepartmentForm.fxml
+			Stage dialogStage = new Stage();// quando criamos uma janela do tipo MODAL temos de criar um movo
+			//palco(Stage), pois teremos um palco abrindo na frente do outro
 			dialogStage.setTitle("Enter department Data");
-			dialogStage.setScene( new Scene(pane));
-			dialogStage.setResizable(false);
-			dialogStage.initOwner(parentStage);
-			dialogStage.initModality(Modality.WINDOW_MODAL);
-			dialogStage.showAndWait();
+			dialogStage.setScene( new Scene(pane));//para um novo palco criamos uma nova cena
+			dialogStage.setResizable(false);//false nao permite o redimensionamento da janela
+			dialogStage.initOwner(parentStage);//inicia o palco pai(parenteStage) da janela
+			dialogStage.initModality(Modality.WINDOW_MODAL);//MODAL não permite clicar fora da janela enquanto ele tiver aberta 
+			dialogStage.showAndWait();//exibe(carrega) a janela
 			
 		}catch(IOException e) {
 			
