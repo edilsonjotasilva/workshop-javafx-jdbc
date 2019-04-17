@@ -33,7 +33,7 @@ public class MainViewControllers implements Initializable {
 
 	@FXML
 	public void onMenuDepartmentAction() {
-		loadView("/gui/DepartmentList.fxml",(DepartmentListController controller) -> {
+		loadView("/gui/DepartmentList.fxml",(DepartmentListController controller) -> {//chamada do metodo
 			controller.setDepartmentService(new DepartmentService());	
 			controller.updateTableView();
 		});
@@ -51,7 +51,8 @@ public class MainViewControllers implements Initializable {
 
 
 	private synchronized<T> void loadView(String absoluteName, Consumer<T>initializingAction) {
-		try {
+		try {// a linha abaixo carrega a tela do AboutView ou do DepartmentListView, depende do metodo que 
+			// está chamando o loadView 
 			FXMLLoader telaDepartmentList = new FXMLLoader(getClass().getResource(absoluteName));
 			VBox newVboxDepartmentController = telaDepartmentList.load();//carrega a tela do About
 			//abaixo estou pegando o objeto getcenaPrincipal da classe principal para poder referenciar o node da Scene cenaPrincipal

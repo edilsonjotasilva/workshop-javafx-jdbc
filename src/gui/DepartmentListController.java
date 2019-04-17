@@ -49,7 +49,8 @@ public class DepartmentListController implements Initializable {
 	@FXML
 	public void  onBtNewAction(ActionEvent carregarFormDepartmentList) {
 		Stage parentStage = Utils.currenteStage(carregarFormDepartmentList);
-		createDialogForm("/gui/DepartmentForm.fxml",parentStage);
+		Department obj = new Department();
+		createDialogForm(obj,"/gui/DepartmentForm.fxml",parentStage);
 	}	
 	public void setDepartmentService(DepartmentService service) {
 		this.service = service;
@@ -76,10 +77,13 @@ public class DepartmentListController implements Initializable {
 		tableViewDepartment.setItems(obsList);
 		
 	}
-	private void createDialogForm(String absoluteName,Stage parentStage) {//parentStage nome da janela de dialogo
+	private void createDialogForm(Department obj,String absoluteName,Stage parentStage) {//parentStage nome da janela de dialogo
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			Pane pane = loader.load();
+			DepartmentFormController controller = loader.getController();
+			controller.setDepartment(obj);
+			controller.updateFormData();
 			//codigos da janela de dialogo da View DepartmentForm.fxml
 			Stage dialogStage = new Stage();// quando criamos uma janela do tipo MODAL temos de criar um movo
 			//palco(Stage), pois teremos um palco abrindo na frente do outro
