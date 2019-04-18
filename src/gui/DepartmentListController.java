@@ -81,9 +81,13 @@ public class DepartmentListController implements Initializable {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			Pane pane = loader.load();
+			
 			DepartmentFormController controller = loader.getController();
 			controller.setDepartment(obj);
+			controller.setDepartmentService(new DepartmentService());
 			controller.updateFormData();
+			
+			
 			//codigos da janela de dialogo da View DepartmentForm.fxml
 			Stage dialogStage = new Stage();// quando criamos uma janela do tipo MODAL temos de criar um movo
 			//palco(Stage), pois teremos um palco abrindo na frente do outro

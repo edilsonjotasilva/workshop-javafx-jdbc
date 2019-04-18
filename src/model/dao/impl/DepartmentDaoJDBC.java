@@ -21,16 +21,16 @@ public class DepartmentDaoJDBC implements DepartmentDao {
 	}
 
 	@Override
-	public void insert(String name) {
+	public void insert(Department obj) {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
 			st = conn.prepareStatement("INSERT into department (Name) Values(?)");
-			st.setString(1, name);
+			st.setString(1, obj.getName());
 			st.executeUpdate();		
 			////////////buscando elemento inserido/////////////
 			st = conn.prepareStatement("select * from department where Name = ?");
-			st.setString(1, name);
+			st.setString(1, obj.getName());
 			rs = st.executeQuery();
 			while(rs.next()) {
 				Department dep = new Department();
