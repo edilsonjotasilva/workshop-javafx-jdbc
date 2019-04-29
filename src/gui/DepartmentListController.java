@@ -53,7 +53,11 @@ public class DepartmentListController implements Initializable, DataChangeListen
 	private TableColumn<Department, Department> tableColumnEDIT;
 	
 	@FXML
+<<<<<<< HEAD
 	private TableColumn<Department, Department>tableColumnREMOVE;
+=======
+	private TableColumn<Department,Department>tableColumnREMOVE;
+>>>>>>> 189f51d15f955de92608bc6b680f569c37201ffd
 	
 	@FXML
 	private ObservableList<Department> obsList;
@@ -167,7 +171,12 @@ public class DepartmentListController implements Initializable, DataChangeListen
 				}
 
 				setGraphic(button);
+<<<<<<< HEAD
 				button.setOnAction(event -> removeEntity(obj));
+=======
+				button.setOnAction(
+						event -> removeEntity(obj));
+>>>>>>> 189f51d15f955de92608bc6b680f569c37201ffd
 						
 			}
 		});
