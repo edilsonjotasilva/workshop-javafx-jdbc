@@ -10,6 +10,7 @@ import java.util.List;
 
 import db.DB;
 import db.DbException;
+import db.DbIntegridException;
 import model.dao.DepartmentDao;
 import model.entities.Department;
 
@@ -59,7 +60,7 @@ public class DepartmentDaoJDBC implements DepartmentDao {
 			}
 			System.out.println("Rows Affected : " + rowsAffected);
 		} catch (SQLException e) {
-			throw new DbException(e.getMessage());
+			throw new DbIntegridException(e.getMessage());
 
 		} finally {
 			DB.closeStatement(st);
