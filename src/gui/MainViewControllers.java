@@ -41,7 +41,9 @@ public class MainViewControllers implements Initializable {
 
 	@FXML
 	public void onMenuAboutAction() {
-		loadView("/gui/About.fxml", x -> {});
+	//	loadView("/gui/About.fxml", x -> {});
+		loadView("/gui/About.fxml",( DepartmentService service)->
+		service.equals(null));
 	}
 
 	@Override
@@ -54,7 +56,8 @@ public class MainViewControllers implements Initializable {
 		try {// a linha abaixo carrega a tela do AboutView ou do DepartmentListView, depende do metodo que 
 			// está chamando o loadView 
 			FXMLLoader telaDepartmentList = new FXMLLoader(getClass().getResource(absoluteName));
-			VBox newVboxDepartmentController = telaDepartmentList.load();//carrega a tela do About
+			VBox newVboxDepartmentController = telaDepartmentList.load();//carrega a tela do About ou do deparmentList, depende
+			// do caminho absoluto quer for passado na chamado do metodo loadView
 			//abaixo estou pegando o objeto getcenaPrincipal da classe principal para poder referenciar o node da Scene cenaPrincipal
 			//Principal, mais abaixo o metodo getRoot do objeto cenaPrincipal pega o primeiro node da nossa cena principal
 			Scene cenaPrincipal = Main.getMainScene();
